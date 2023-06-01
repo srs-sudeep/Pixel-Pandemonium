@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Personal Finance Tracker</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Personal Finance Tracker</h1>
+    <div id="transaction">
+      <h2>Transaction</h2>
+      <ul>
+        <li>Description: <span class="description"></span></li>
+        <li>Amount: $<span class="amount"></span></li>
+        <li>Date: <span class="date"></span></li>
+        <li>Type: <span class="type"></span></li>
+      </ul>
+    </div>
+    <div id="edit-transaction">
+      <h2>Edit Transaction</h2>
+      <form action="/transaction/<%= transaction._id %>/edit" method="POST">
+        <label for="description">Description: </label>
+        <input type="text" name="description" id="description" value="<%= transaction.description %>" required /><br />
+        <label for="amount">Amount: </label>
+        <input type="number" name="amount" id="amount" value="<%= transaction.amount %>" required /><br />
+        <label for="date">Date: </label>
+        <input type="date" name="date" id="date" value="<%= transaction.date %>" required /><br />
+        <label for="type">Type: </label>
+        <select name="type" id="type">
+          <option value="Income" <% if(transaction.type === 'Income') { %>selected<% } %>>Income</option>
+          <option value="Expense" <% if(transaction.type === 'Expense') { %>selected<% } %>>Expense</option>
+        </select><br />
+        <input type="submit" value="Update" />
+      </form>
+    </div>
+    <div id="delete-transaction">
+      <h2>Delete Transaction</h2>
+      <form action="/transaction/<%= transaction._id %>/delete" method="POST">
+        <input type="submit" value="Delete" />
+      </form>
+    </div>
+  </body>
+</html>
+<!-- Path: views\transaction_form

@@ -30,6 +30,3 @@ app.listen(3000, () => {
   
 
 
-
-// Path: views/index.ejs
-
