@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Personal Finance Tracker</title>
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+    <h1>Personal Finance Tracker</h1>
+    <div class="container">
+      <div class="balance">
+        <h2 class="balance__heading">Balance</h2>
+        <h2 class="balance__amount">$0</h2>
+      </div>
+      <div class="income">
+        <h2 class="income__heading">Income</h2>
+        <form class="income__form" action="/add-income" method="POST">
+          <input
+            type="text"
+            name="description"
+            placeholder="Income description"
+            required
+          />
+          <input
+            type="number"
+            name="amount"
+            placeholder="Income amount"
+            required
+          />
+          <input type="submit" value="Add income" />
+        </form>
+        <ul class="income__list">
+          <!-- Income items will be added here -->
+        </ul>
+      </div>
+      <div class="expenses">
+        <h2 class="expenses__heading">Expenses</h2>
+        <form class="expenses__form" action="/add-expense" method="POST">
+          <input
+            type="text"
+            name="description"
+            placeholder="Expense description"
+            required
+          />
+          <input
+            type="number"
+            name="amount"
+            placeholder="Expense amount"
+            required
+          />
+          <input type="submit" value="Add expense" />
+        </form>
+        <ul class="expenses__list">
+          <!-- Expense items will be added here -->
+        </ul>
+      </div>
+    </div>
+    <script src="/js/app.js"></script>
+  </body>
+</html>
