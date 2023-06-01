@@ -25,4 +25,5 @@
       return moment(this.date).format('MMMM Do, YYYY');
     });
   
+  
   module.exports = mongoose.model('Transaction', TransactionSchema);
