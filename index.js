@@ -14,6 +14,19 @@ app.use(bodyParser.urlencoded({extended: false}));
 // Set up static directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+// set up mongoose connection
+const mongoose = require('mongoose');
+const mongoDBUrl = 'mongodb+srv://arnavprakash:nicedatabase123@cluster1.bbkvpc6.mongodb.net/?retryWrites=true&w=majority'; // Replace with your MongoDB connection string
+
+mongoose.connect(mongoDBUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('MongoDB connected');
+    // Continue with defining models and performing database operations
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+  });
+
 // Set up routes
 const routes = require('./routes/index');
 app.use('/', routes);

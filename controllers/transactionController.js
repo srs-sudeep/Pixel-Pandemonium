@@ -15,12 +15,13 @@ exports.transaction_create = (req, res) => {
     type: req.body.type
   });
 
-  transaction.save((err) => {
-    if (err) {
-      return next(err);
-    }
-    res.redirect('/');
-  });
+  transaction.save()
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch(err => {
+      next(err);
+    });
 };
 
 // Display detail page for a specific transaction
