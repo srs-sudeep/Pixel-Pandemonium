@@ -5,6 +5,7 @@ const moment = require("moment");
 const Schema = mongoose.Schema;
 
 const TransactionSchema = new Schema({
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   description: { type: String, required: true, max: 100 },
   amount: { type: Number, required: true },
   date: { type: Date, default: Date.now },

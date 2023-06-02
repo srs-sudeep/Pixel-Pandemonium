@@ -6,6 +6,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
+const session = require('express-session');
+// const bcrypt = require('bcrypt');
 
 // Set up body parser
 app.use(bodyParser.json());
@@ -13,11 +15,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Set up static directory
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(session({ secret: 'mysecret', resave: true, saveUninitialized: true }));
 // set up mongoose connection
 const mongoose = require("mongoose");
 const mongoDBUrl =
-  "mongodb+srv://arnavprakash:nicedatabase123@cluster1.bbkvpc6.mongodb.net/?retryWrites=true&w=majority"; // Replace with your MongoDB connection string
+  "mongodb+srv://sudeep:123@cluster0.th6slko.mongodb.net/?retryWrites=true&w=majority"; // Replace with your MongoDB connection string
 
 mongoose
   .connect(mongoDBUrl, { useNewUrlParser: true, useUnifiedTopology: true })

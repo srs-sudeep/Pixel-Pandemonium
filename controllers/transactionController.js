@@ -1,24 +1,40 @@
 //controllers/transactionController.js
 const Transaction = require("../models/transaction");
+const User = require("../models/user");
 
 // Display index page
 exports.index = (req, res) => {
-  res.render("index");
+  const {userId}  = req.params;
+  console.log({userId});
+  if (req.session.userId !== userId) {
+    return res.redirect('/signin');
+  }
+
+  const user =  User.findById(userId);
+  if (!user) {
+    res.redirect('/signin');
+  }
+  const transactions = Array.from(Transaction.find({ userId }));
+
+  res.render("index",{user, transactions});
 };
 
 // Create transaction
 exports.transaction_create = (req, res, next) => {
+  const { userId } = req.params;
+  const { amount, date, description, type } = req.body;
   const transaction = new Transaction({
-    description: req.body.description,
-    amount: req.body.amount,
-    date: req.body.date,
-    type: req.body.type,
+    userId,
+    amount,
+    date,
+    description,
+    type,
   });
 
   transaction
     .save()
     .then(() => {
-      res.redirect("/");
+      res.redirect(`/${userId}/transaction`);
     })
     .catch((err) => {
       next(err);
@@ -26,53 +42,67 @@ exports.transaction_create = (req, res, next) => {
 };
 
 // Display detail page for a specific transaction
-exports.transaction_detail = (req, res, next) => {
-  Transaction.findById(req.params.id)
-    .then((transaction) => {
-      if (!transaction) {
-        // Transaction not found
-        return res.status(404).send("Transaction not found");
-      }
-      res.render("transaction_detail", { transaction: transaction });
-    })
-    .catch((err) => {
-      next(err);
-    });
+exports.transaction_edit = (req, res, next) => {
+  const { userId, transactionId } = req.params;
+  if (req.session.userId !== userId) {
+    return res.redirect('/signin');
+  } 
+  const user = User.findById(userId);
+  if (!user) {
+    return res.redirect('/signin');
+  }
+
+  const transaction = Transaction.findById(transactionId);
+  if (!transaction || transaction.userId.toString() !== userId) {
+    return res.redirect('/signin');
+  }
+  res.render('editTransaction', { user, transaction });
 };
 
-// Display list of all transactions
-exports.transaction_list = (req, res, next) => {
-  Transaction.find({})
-    .then((transactions) => {
-      res.render("transaction_list", { transactions: transactions });
-    })
-    .catch((err) => {
-      next(err);
-    });
+exports.transaction_post_edit = (req, res, next) => {
+  const { userId, transactionId } = req.params;
+  const { amount, date, description, type } = req.body;
+
+  try {
+    const transaction = Transaction.findById(transactionId);
+    if (!transaction || transaction.userId.toString() !== userId) {
+      return res.redirect('/signin');
+    }
+
+    transaction.amount = amount;
+    transaction.date = date;
+    transaction.description = description;
+    transaction.type = type;
+    transaction.save();
+
+    res.redirect(`/${userId}/transaction`);
+  } catch (error) {
+    console.error(error);
+    res.redirect(`/${userId}/transaction`);
+  }
 };
 
-// Update
-exports.transaction_update = (req, res, next) => {
-  Transaction.findByIdAndUpdate(req.params.id, { $set: req.body })
-    .then((transaction) => {
-      if (!transaction) {
-        // Transaction not found
-        return res.status(404).send("Transaction not found");
-      }
-      res.redirect(transaction.url);
-    })
-    .catch((err) => {
-      next(err);
-    });
-};
+
 
 // Delete
 exports.transaction_delete = (req, res, next) => {
-  Transaction.findByIdAndRemove(req.params.id)
-    .then(() => {
-      res.redirect("/");
-    })
-    .catch((err) => {
-      next(err);
-    });
+  const { userId, transactionId } = req.params;
+
+  if (req.session.userId !== userId) {
+    return res.redirect('/signin');
+  }
+
+  const user = User.findById(userId);
+  if (!user) {
+    return res.redirect('/signin');
+  }
+
+  const transaction =  Transaction.findById(transactionId);
+  if (!transaction || transaction.userId.toString() !== userId) {
+    return res.redirect('/signin');
+  }
+
+  Transaction.findByIdAndDelete(transactionId);
+
+  res.redirect(`/${userId}/transaction`);
 };
