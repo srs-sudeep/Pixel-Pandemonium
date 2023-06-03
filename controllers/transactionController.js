@@ -17,7 +17,7 @@ exports.index = (req, res, next) => {
         .then((transactions) => {
           if (!transactions) {
             transactions = [];
-          }
+          } 
           res.render("index", { user, transactions });
         })
         .catch((err) => {
@@ -82,9 +82,6 @@ exports.transaction_edit = (req, res, next) => {
 exports.transaction_post_edit = (req, res, next) => {
   const { userId, transactionId } = req.params;
   const { amount, date, description, type } = req.body;
-  console.log("      ");
-  console.log("      ");
-  console.log("      ");
   try {
     Transaction.findById(transactionId)
       .then((transaction) => {
