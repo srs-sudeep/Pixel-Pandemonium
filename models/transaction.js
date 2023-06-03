@@ -9,7 +9,7 @@ const TransactionSchema = new Schema({
   description: { type: String, required: true, max: 100 },
   amount: { type: Number, required: true },
   date: { type: Date, default: Date.now },
-  type: { type: String, required: true, enum: ["Income", "Expense"] },
+  type: { type: String, required: true, enum: ["income", "expense"] },
 });
 
 TransactionSchema.virtual("url").get(function () {
