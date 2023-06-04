@@ -1,20 +1,16 @@
 <%- include('partials/header2'); -%>
-<h1>Welcome <%= user.username %></h1>
-    
-    <h2>Add Transaction:</h2>
-    <form action="/<%= user._id %>/transaction/create" method="POST">
-      <label for="amount">Amount:</label>
-      <input type="number" id="amount" name="amount" required><br>
-      <label for="date">Date:</label>
-      <input type="date" id="date" name="date" required><br>
-      <label for="description">Description:</label>
-      <input type="text" id="description" name="description" required><br>
-      <label for="type">Type:</label>
+<h1 class="welcome-user">Welcome <%= user.username %></h1>
+  
+    <form class="register-form transaction" action="/<%= user._id %>/transaction/create" method="POST">
+      <input type="number" id="amount" name="amount" placeholder="Amount" required><br>
+      <input type="date" id="date" name="date" placeholder="Date" required><br>
+      <input type="text" id="description" name="description" placeholder="Description" required><br>
       <select id="type" name="type" required>
+        <option value="">-Select type-</option>
         <option value="expense">Expense</option>
         <option value="income">Income</option>
       </select><br>
-      <input type="submit" value="Add Transaction">
+      <input class="buttons" type="submit" value="Add Transaction">
     </form>
     
     <h2>Transactions:</h2>
@@ -33,8 +29,8 @@
           <td><%= transaction.date.toISOString().split("T")[0] %></td>
           <td><%= transaction.type %></td>
           <td>
-            <a href="/<%= user._id %>/transaction/<%= transaction._id %>/edit">Edit</a>
-            <a href="/<%= user._id %>/transaction/<%= transaction._id %>/delete">Delete</a>
+            <a href="/<%= user._id %>/transaction/<%= transaction._id %>/edit"><img src="https://icon-library.com/images/edit-icon-vector/edit-icon-vector-21.jpg" alt="edit" style="height: 2vh; margin: 2vh;"/></a>
+            <a href="/<%= user._id %>/transaction/<%= transaction._id %>/delete"><img src="https://w7.pngwing.com/pngs/748/768/png-transparent-computer-icons-html-waste-bin-white-rectangle-logo-thumbnail.png" alt="delete"  style="height: 2vh;"/></a>
           </td>
         </tr>
       <% }) %>
