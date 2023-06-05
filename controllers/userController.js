@@ -19,13 +19,8 @@ exports.user_create = (req, res, next) => {
     password: req.body.password,
     username: req.body.username,
   });
-  User.find({ username: req.body.username })
-    .then((user) => {
-      if (user) {
-        console.log("user already exists");
-        res.redirect("/signin");
-        return;
-      } else {
+
+      
         user
           .save()
           .then(() => {
@@ -34,11 +29,8 @@ exports.user_create = (req, res, next) => {
           .catch((err) => {
             next(err);
           });
-      }
-    })
-    .catch((err) => {
-      next(err);
-    });
+
+
 };
 //write code for signin page and check bu its email and password from the databse
 exports.signindone = (req, res, next) => {
