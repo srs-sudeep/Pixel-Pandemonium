@@ -1,7 +1,7 @@
 <%- include('partials/header2'); -%>
 <h1 class="welcome-user">Welcome <%= user.username %></h1>
   
-<h2>ADD TRANSACTION:</h2>
+<h2 class="welcome-heading">ADD TRANSACTION</h2>
     <form class="register-form transaction" action="/<%= user._id %>/transaction/create" method="POST">
       <input type="number" id="amount" name="amount" placeholder="Amount" required><br>
       <input type="date" id="date" name="date" placeholder="Date" required><br>
@@ -14,7 +14,7 @@
       <input class="buttons" type="submit" value="Add Transaction">
     </form>
     
-    <h2>TRANSACTION</h2>
+    <h2 class="welcome-heading">TRANSACTION</h2>
     <table class="table table-striped table-hover">
       <thead class="thead-dark">
         <tr>

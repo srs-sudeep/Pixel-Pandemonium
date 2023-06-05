@@ -1,7 +1,7 @@
 <%- include('partials/header2'); -%>
-<h1>Edit Transaction</h1>
+<h2 class="welcome-heading">Edit Transaction</h2>
     
-    <form action="/<%= user._id %>/transaction/<%= transaction._id %>/edit" method="POST">
+    <form class="register-form" action="/<%= user._id %>/transaction/<%= transaction._id %>/edit" method="POST">
       <label for="amount">Amount:</label>
       <input type="number" id="amount" name="amount" value="<%= transaction.amount %>" required><br>
       <label for="date">Date:</label>
@@ -13,7 +13,7 @@
         <option value="expense" <% if (transaction.type === 'expense') { %>selected<% } %>>Expense</option>
         <option value="income" <% if (transaction.type === 'income') { %>selected<% } %>>Income</option>
       </select><br>
-      <input type="submit" value="Update Transaction">
+      <input class="buttons" type="submit" value="Update Transaction">
     </form>
     <%- include('partials/footer'); -%>
 <!-- Path: views\transaction_form

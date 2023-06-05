@@ -110,7 +110,14 @@
     font-size: 2rem;
     font-weight: 400;
 } */
-
+.register-form select {
+    padding: 5%;
+    height: 10vh;
+    width: 20vw;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+  }
 .register-form input {
   padding: 5%;
   height: 10vh;
@@ -202,7 +209,12 @@
     width: 0ch;
   } /*Text stays hidden*/
 }
-
+.welcome-heading{
+    font-size: 30px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #1abc9c;   
+}
 .welcome-button {
   background-color: white;
   color: black;
