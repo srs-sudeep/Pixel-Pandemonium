@@ -16,18 +16,19 @@
     <h2>Transactions:</h2>
     <table>
       <tr>
-        <th>Description</th>
-        <th>Amount</th>
         <th>Date</th>
         <th>Type</th>
+        <th>Amount</th>
+        <th>Description</th>
         <th>Actions</th>
+        
       </tr>
       <% Array.from(transactions).forEach(transaction => { %>
         <tr>
-          <td><%= transaction.description %></td>
-          <td><%= transaction.amount %></td>
           <td><%= transaction.date.toISOString().split("T")[0] %></td>
           <td><%= transaction.type %></td>
+          <td><%= transaction.amount %></td>
+          <td><%= transaction.description %></td>
           <td>
             <a href="/<%= user._id %>/transaction/<%= transaction._id %>/edit"><img src="https://icon-library.com/images/edit-icon-vector/edit-icon-vector-21.jpg" alt="edit" style="height: 2vh; margin: 2vh;"/></a>
             <a href="/<%= user._id %>/transaction/<%= transaction._id %>/delete"><img src="https://w7.pngwing.com/pngs/748/768/png-transparent-computer-icons-html-waste-bin-white-rectangle-logo-thumbnail.png" alt="delete"  style="height: 2vh;"/></a>
