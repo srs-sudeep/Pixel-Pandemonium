@@ -1,6 +1,7 @@
 <%- include('partials/header2'); -%>
 <h1 class="welcome-user">Welcome <%= user.username %></h1>
   
+<h2 class="welcome-heading">ADD TRANSACTION</h2>
     <form class="register-form transaction" action="/<%= user._id %>/transaction/create" method="POST">
       <input type="number" id="amount" name="amount" placeholder="Amount" required><br>
       <input type="date" id="date" name="date" placeholder="Date" required><br>
@@ -13,27 +14,31 @@
       <input class="buttons" type="submit" value="Add Transaction">
     </form>
     
-    <h2>Transactions:</h2>
-    <table>
-      <tr>
-        <th>Date</th>
-        <th>Type</th>
-        <th>Amount</th>
-        <th>Description</th>
-        <th>Actions</th>
-        
-      </tr>
-      <% Array.from(transactions).forEach(transaction => { %>
+    <h2 class="welcome-heading">TRANSACTION</h2>
+    <table class="table table-striped table-hover">
+      <thead class="thead-dark">
         <tr>
-          <td><%= transaction.date.toISOString().split("T")[0] %></td>
-          <td><%= transaction.type %></td>
-          <td><%= transaction.amount %></td>
-          <td><%= transaction.description %></td>
-          <td>
-            <a href="/<%= user._id %>/transaction/<%= transaction._id %>/edit"><img src="https://icon-library.com/images/edit-icon-vector/edit-icon-vector-21.jpg" alt="edit" style="height: 2vh; margin: 2vh;"/></a>
-            <a href="/<%= user._id %>/transaction/<%= transaction._id %>/delete"><img src="https://w7.pngwing.com/pngs/748/768/png-transparent-computer-icons-html-waste-bin-white-rectangle-logo-thumbnail.png" alt="delete"  style="height: 2vh;"/></a>
-          </td>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Actions</th>
         </tr>
-      <% }) %>
-    </table>
+      </thead>
+      <tbody>
+
+        <% Array.from(transactions).forEach(transaction => { %>
+          <tr>
+            <td><%= transaction.description %></td>
+            <td><%= transaction.amount %></td>
+            <td><%= transaction.date.toISOString().split("T")[0] %></td>
+            <td><%= transaction.type %></td>
+            <td>
+              <a href="/<%= user._id %>/transaction/<%= transaction._id %>/edit"><img src="https://icon-library.com/images/edit-icon-vector/edit-icon-vector-21.jpg" alt="edit" style="height: 2vh; margin: 2vh;"/></a>
+              <a href="/<%= user._id %>/transaction/<%= transaction._id %>/delete"><img src="https://w7.pngwing.com/pngs/748/768/png-transparent-computer-icons-html-waste-bin-white-rectangle-logo-thumbnail.png" alt="delete"  style="height: 2vh;"/></a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+        </table>
     <%- include('partials/footer'); -%>
